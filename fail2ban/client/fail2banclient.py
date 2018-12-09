@@ -272,7 +272,9 @@ class Fail2banClient(Fail2banCmdLine, Thread):
 			if not ret:
 				return False
 			return ret
-
+                if len(cmd) == 1 and cmd[0] == "printLog":
+                        os.system("cat /var/log/fail2ban.log* | grep '] Ban' | awk '{print $NF}' | sort | uniq -c | sort -n")
+                        
 		elif len(cmd) >= 1 and cmd[0] == "restart":
 			# if restart jail - re-operate via "reload --restart ...":
 			if len(cmd) > 1:
